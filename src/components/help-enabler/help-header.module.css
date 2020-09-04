@@ -1,9 +1,4 @@
-
-.helpDropdownItem {
-  background-color: transparent;
-}
-
-.helpText {
-  overflow-wrap: break-word;
-  white-space: normal;
+/* This fixes a Patternfly bug where description text on a dropdown within a dark component is displayed incorrectly. When fixed in PF, this can be removed. */
+:global .pf-c-page__header .pf-c-dropdown__menu-item-description {
+  --pf-c-dropdown__menu-item-description--Color: var(--pf-global--Color--dark-200);
 }
