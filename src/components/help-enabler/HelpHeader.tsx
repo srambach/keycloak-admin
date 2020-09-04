@@ -12,8 +12,6 @@ import {
 import { Trans, useTranslation } from "react-i18next";
 import { HelpIcon, ExternalLinkAltIcon } from "@patternfly/react-icons";
 
-import style from "./help-header.module.css";
-
 type HelpProps = {
   children: ReactNode;
 };
@@ -58,8 +56,6 @@ export const HelpHeader = () => {
     <DropdownItem
       key="enable"
       id="enable"
-      // component="div"
-      className={style.helpDropdownItem}
       description={
         <Trans>
           This toggle will enable / disable part of the help info in the console. Includes any help text, links and popovers.
