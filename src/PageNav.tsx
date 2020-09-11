@@ -6,6 +6,8 @@ import {
   NavGroup,
   NavList,
   PageSidebar,
+  Split,
+  SplitItem
 } from "@patternfly/react-core";
 import { RealmSelector } from "./components/realm-selector/RealmSelector";
 import { DataLoader } from "./components/data-loader/DataLoader";
@@ -56,7 +58,8 @@ export const PageNav: React.FunctionComponent = () => {
       nav={
         <Nav onSelect={onSelect}>
           <NavList>
-            <NavItem>
+            // TODO: After CSS modules is removed from project, correct the BEM names of the class
+            <NavItem className="keycloak__page_nav__nav_item__realm-selector">
               <DataLoader loader={realmLoader}>
                 {(realmList) => (
                   <RealmSelector realm="Master" realmList={realmList || []} />

@@ -34,16 +34,17 @@ export const RealmSelector = ({ realm, realmList }: RealmSelectorProps) => {
     </DropdownItem>
   ));
 
+  // TODO: After CSS modules is removed from project, correct the BEM names of the classes
   return (
     <Dropdown
       id="realm-select"
-      className={style.dropdown}
+      className={style.keycloak__realm_selector__dropdown}
       isOpen={open}
       toggle={
         <DropdownToggle
           id="realm-select-toggle"
           onToggle={() => setOpen(!open)}
-          className="keycloak--realm-selector__dropdown"
+          className="keycloak__realm_selector_dropdown__toggle"
         >
           {currentRealm}
         </DropdownToggle>
