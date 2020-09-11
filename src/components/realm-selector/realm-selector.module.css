@@ -1,32 +1,14 @@
 
-.dropdown {
-  width: 100%;
-  padding: 32px;
-  border-bottom: 1px solid var(--pf-c-nav__link--before--BorderColor);
+:global .keycloak--realm-selector__dropdown {
+  --pf-c-dropdown__toggle--Color: var(--pf-c-nav__link--m-current--Color);
+  --pf-c-dropdown__toggle--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
+  --pf-c-dropdown__toggle--before--BorderTopColor: var(--pf-global--BorderColor--200);
+  --pf-c-dropdown__toggle--before--BorderRightColor: var(--pf-global--BorderColor--200);
+  --pf-c-dropdown__toggle--before--BorderBottomColor: var(--pf-global--BorderColor--100);
+  --pf-c-dropdown__toggle--before--BorderLeftColor: var(--pf-global--BorderColor--200);
 
-  outline: 1px solid var(--pf-global--Color--200);
-  outline-offset:-32px;    
-}
-
-.menu {
-    /* setting this to 85% for now */
-    min-width: 85%;
-}
-
-.pf-c-button.pf-m-primary.realmSelectButton {
-  width: 100%;
-}
-
-.toggle {
-  color: var(--pf-c-nav__link--m-current--Color);
-  width: 100%;
-  background: var(--pf-global--BackgroundColor--dark-100);
-}
-
-.toggle:focus {
-  outline:0;
-}
-
-.toggle::before {
-  border: none;
+  margin-top: var(--pf-c-nav__link--PaddingTop);
+  /* margin-bottom: var(--pf-c-nav__link--PaddingBottom);  this makes the menu separate from the button */
+  margin-left: var(--pf-c-nav__link--PaddingLeft);
+  margin-right: var(--pf-c-nav__link--PaddingRight);
 }

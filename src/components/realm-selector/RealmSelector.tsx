@@ -43,7 +43,7 @@ export const RealmSelector = ({ realm, realmList }: RealmSelectorProps) => {
         <DropdownToggle
           id="realm-select-toggle"
           onToggle={() => setOpen(!open)}
-          className={style.toggle}
+          className="keycloak--realm-selector__dropdown"
         >
           {currentRealm}
         </DropdownToggle>
