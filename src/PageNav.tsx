@@ -56,8 +56,6 @@ export const PageNav: React.FunctionComponent = () => {
       nav={
         <Nav onSelect={onSelect}>
           <NavList>
-            // TODO: After CSS modules is removed from project, correct the BEM
-            names of the class
             <NavItem className="keycloak__page_nav__nav_item__realm-selector">
               <DataLoader loader={realmLoader}>
                 {(realmList) => (

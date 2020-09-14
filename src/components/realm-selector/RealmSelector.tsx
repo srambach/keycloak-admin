@@ -10,7 +10,7 @@ import {
   Divider,
 } from "@patternfly/react-core";
 
-import style from "./realm-selector.module.css";
+import "./realm-selector.css";
 
 type RealmSelectorProps = {
   realm: string;
@@ -34,11 +34,10 @@ export const RealmSelector = ({ realm, realmList }: RealmSelectorProps) => {
     </DropdownItem>
   ));
 
-  // TODO: After CSS modules is removed from project, correct the BEM names of the classes
   return (
     <Dropdown
       id="realm-select"
-      className={style.keycloak__realm_selector__dropdown}
+      className="keycloak__realm_selector__dropdown"
       isOpen={open}
       toggle={
         <DropdownToggle
