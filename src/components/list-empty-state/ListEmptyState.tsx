@@ -8,7 +8,7 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-type ListEmptyStateProps = {
+export type ListEmptyStateProps = {
   message: string;
   instructions: string;
   primaryActionText: string;
