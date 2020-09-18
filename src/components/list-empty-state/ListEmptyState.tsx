@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import {
   EmptyState,
   EmptyStateIcon,
@@ -8,19 +8,19 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-type EmptyListProps = {
+type ListEmptyStateProps = {
   message: string;
   instructions: string;
   primaryActionText: string;
-  primaryAction: any;
+  onPrimaryAction: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const EmptyList = ({
+export const ListEmptyState = ({
   message,
   instructions,
   primaryActionText,
-  primaryAction,
-}: EmptyListProps) => {
+  onPrimaryAction,
+}: ListEmptyStateProps) => {
   return (
     <>
       <EmptyState variant="large">
@@ -29,7 +29,7 @@ export const EmptyList = ({
           {message}
         </Title>
         <EmptyStateBody>{instructions}</EmptyStateBody>
-        <Button variant="primary" onClick={primaryAction}>
+        <Button variant="primary" onClick={onPrimaryAction}>
           {primaryActionText}
         </Button>
       </EmptyState>
