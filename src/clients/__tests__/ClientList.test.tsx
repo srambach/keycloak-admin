@@ -9,10 +9,9 @@ import i18n from "../../i18n";
 
 test("renders ClientList", () => {
   const clientList = mount(
-      <ClientList clients={clientMock} baseUrl="http://blog.nerdin.ch" />
+    <ClientList clients={clientMock} baseUrl="http://blog.nerdin.ch" />
   );
   expect(clientList).toMatchSnapshot();
-
 });
 
 test("renders ClientList", () => {
