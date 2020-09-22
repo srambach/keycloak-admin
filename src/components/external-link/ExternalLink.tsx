@@ -6,7 +6,7 @@ export const ExternalLink = ({
   title,
   href,
   ...rest
-}: React.HTMLProps<HTMLAnchorElement>) => {
+}: ButtonProps) => {
   return (
     <Button
       variant="link"
