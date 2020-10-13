@@ -44,7 +44,7 @@ export const UserFederationSection = () => {
       </PageSection>
       <PageSection isFilled>
         <TextContent>
-          <Text component={TextVariants.h3}>{t("providers")}</Text>
+          <Text component={TextVariants.h2}>{t("providers")}</Text>
         </TextContent>
         <hr className="pf-u-mb-lg" />
         <Gallery hasGutter>
