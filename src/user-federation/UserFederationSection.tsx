@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardTitle,
   Gallery,
@@ -11,19 +10,15 @@ import {
   TextContent,
   TextVariants,
 } from "@patternfly/react-core";
-import {
-  DatabaseIcon,
-  ExternalLinkSquareAltIcon,
-} from "@patternfly/react-icons";
+import { DatabaseIcon } from "@patternfly/react-icons";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { ViewHeader } from "../components/view-header/ViewHeader";
-import { ExternalLink } from "../components/external-link/ExternalLink";
 
 export const UserFederationSection = () => {
   const { t } = useTranslation("user-federation");
   const linkArgs = {
-    title: "More information",
+    title: t("common:learnMore"),
     href: "http://google.com",
   };
 
