@@ -45,6 +45,11 @@
     "validRedirectUri": "Valid redirect URIs",
     "loginTheme": "Login theme",
     "consentRequired": "Consent required",
-    "searchForClient": "Search for client"
+    "searchForClient": "Search for client",
+    "userFederationExplanation": "Keycloak can federate external user databases. Out of the box we have support for LDAP and Active Directory.",
+    "getStarted": "To get started, select a provider from the list below.",
+    "providers": "Providers",
+    "kerberos": "Kerberos",
+    "ldap": "LDAP"
   }
 }
