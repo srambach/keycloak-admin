@@ -2,7 +2,6 @@ import {
   Card,
   CardTitle,
   Gallery,
-  GalleryItem,
   PageSection,
   Split,
   SplitItem,
@@ -43,30 +42,26 @@ export const UserFederationSection = () => {
         </TextContent>
         <hr className="pf-u-mb-lg" />
         <Gallery hasGutter>
-          <GalleryItem>
-            <Card>
-              <CardTitle>
-                <Split hasGutter>
-                  <SplitItem>
-                    <DatabaseIcon size="lg" />
-                  </SplitItem>
-                  <SplitItem isFilled>{t("kerberos")}</SplitItem>
-                </Split>
-              </CardTitle>
-            </Card>
-          </GalleryItem>
-          <GalleryItem>
-            <Card>
-              <CardTitle>
-                <Split hasGutter>
-                  <SplitItem>
-                    <DatabaseIcon size="lg" />
-                  </SplitItem>
-                  <SplitItem isFilled>{t("ldap")}</SplitItem>
-                </Split>
-              </CardTitle>
-            </Card>
-          </GalleryItem>
+          <Card isHoverable>
+            <CardTitle>
+              <Split hasGutter>
+                <SplitItem>
+                  <DatabaseIcon size="lg" />
+                </SplitItem>
+                <SplitItem isFilled>{t("addKerberos")}</SplitItem>
+              </Split>
+            </CardTitle>
+          </Card>
+          <Card isHoverable>
+            <CardTitle>
+              <Split hasGutter>
+                <SplitItem>
+                  <DatabaseIcon size="lg" />
+                </SplitItem>
+                <SplitItem isFilled>{t("addLdap")}</SplitItem>
+              </Split>
+            </CardTitle>
+          </Card>
         </Gallery>
       </PageSection>
     </>
