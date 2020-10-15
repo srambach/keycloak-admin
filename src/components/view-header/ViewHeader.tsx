@@ -87,7 +87,6 @@ export const ViewHeader = ({
                     />
                   </ToolbarItem>
                   <ToolbarItem>
-                    {/* This is the dropdown to replace the select.  It operates but does not initiate the actions. See it by going to Clients and click on a client. All 3 menu actions should work but don't. */}
                     <Dropdown
                       position={DropdownPosition.right}
                       toggle={
