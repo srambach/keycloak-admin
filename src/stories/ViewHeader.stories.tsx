@@ -27,10 +27,10 @@ Extended.args = {
     href: "http://google.com",
   },
   dropdownItems: [
-    <DropdownItem key="first" value="first-item">
+    <DropdownItem key="first" value="first-item" onClick={() => {}}>
       First item
     </DropdownItem>,
-    <DropdownItem key="second" value="second-item">
+    <DropdownItem key="second" value="second-item" onClick={() => {}}>
       Second item
     </DropdownItem>,
   ],

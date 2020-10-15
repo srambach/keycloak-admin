@@ -117,13 +117,22 @@ export const ClientSettings = () => {
                 titleKey={name}
                 subKey="clients:clientsExplain"
                 dropdownItems={[
-                  <DropdownItem key="download" value="download">
+                  <DropdownItem
+                    key="download"
+                    onClick={() => toggleDownloadDialog()}
+                  >
                     {t("downloadAdapterConfig")}
                   </DropdownItem>,
-                  <DropdownItem key="export" value="export">
+                  <DropdownItem
+                    key="export"
+                    onClick={() => exportClient(form.getValues())}
+                  >
                     {t("common:export")}
                   </DropdownItem>,
-                  <DropdownItem key="delete" value="delete">
+                  <DropdownItem
+                    key="delete"
+                    onClick={() => toggleDeleteDialog()}
+                  >
                     {t("common:delete")}
                   </DropdownItem>,
                 ]}
@@ -134,15 +143,6 @@ export const ClientSettings = () => {
                   } else {
                     onChange(value);
                     save();
-                  }
-                }}
-                onSelect={(value) => {
-                  if (value === "export") {
-                    exportClient(form.getValues());
-                  } else if (value === "delete") {
-                    toggleDeleteDialog();
-                  } else if (value === "download") {
-                    toggleDownloadDialog();
                   }
                 }}
               />

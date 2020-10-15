@@ -11,7 +11,6 @@ import {
   ToolbarContent,
   ToolbarItem,
   Badge,
-  Select,
   ButtonProps,
   Dropdown,
   DropdownToggle,
@@ -30,7 +29,6 @@ export type ViewHeaderProps = {
   subKeyLinkProps?: ButtonProps;
   dropdownItems?: ReactElement[];
   isEnabled?: boolean;
-  onSelect?: (value: string) => void;
   onToggle?: (value: boolean) => void;
 };
 
@@ -41,7 +39,6 @@ export const ViewHeader = ({
   subKeyLinkProps,
   dropdownItems,
   isEnabled = true,
-  onSelect,
   onToggle,
 }: ViewHeaderProps) => {
   const { t } = useTranslation();
@@ -100,27 +97,7 @@ export const ViewHeader = ({
                       }
                       isOpen={isDropdownOpen}
                       dropdownItems={dropdownItems}
-                      onSelect={(value) => {
-                        if (onSelect) {
-                          onSelect((value as unknown) as string);
-                        }
-                        setDropdownOpen(false);
-                      }}
                     />
-                    {/* This is the old select to be replaced by a dropdown */}
-                    {/* <Select
-                      placeholderText={t("common:action")}
-                      isOpen={open}
-                      onToggle={() => setOpen(!open)}
-                      onSelect={(_, value) => {
-                        if (onSelect) {
-                          onSelect(value as string);
-                        }
-                        setOpen(false);
-                      }}
-                    >
-                      {selectItems}
-                    </Select> */}
                   </ToolbarItem>
                 </ToolbarContent>
               </Toolbar>
