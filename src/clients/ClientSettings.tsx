@@ -10,8 +10,8 @@ import {
   ActionGroup,
   Button,
   AlertVariant,
-  SelectOption,
   ButtonVariant,
+  DropdownItem,
 } from "@patternfly/react-core";
 import { useParams } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
@@ -116,16 +116,16 @@ export const ClientSettings = () => {
               <ViewHeader
                 titleKey={name}
                 subKey="clients:clientsExplain"
-                selectItems={[
-                  <SelectOption key="download" value="download">
+                dropdownItems={[
+                  <DropdownItem key="download" value="download">
                     {t("downloadAdapterConfig")}
-                  </SelectOption>,
-                  <SelectOption key="export" value="export">
+                  </DropdownItem>,
+                  <DropdownItem key="export" value="export">
                     {t("common:export")}
-                  </SelectOption>,
-                  <SelectOption key="delete" value="delete">
+                  </DropdownItem>,
+                  <DropdownItem key="delete" value="delete">
                     {t("common:delete")}
-                  </SelectOption>,
+                  </DropdownItem>,
                 ]}
                 isEnabled={value}
                 onToggle={(value) => {
