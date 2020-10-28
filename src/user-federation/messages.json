@@ -7,7 +7,7 @@
     "providers": "Add providers",
     "addKerberos": "Add Kerberos providers",
     "addLdap": "Add LDAP providers",
-
+    "Ldap": "LDAP",
     "syncChangedUsers": "Sync changed users",
     "syncAllUsers": "Sync all users",
     "unlinkUsers": "Unlink users",
@@ -20,15 +20,15 @@
 
     "connectionAndAuthenticationSettings": "Connection and authentication settings",
     "connectionURL": "Connection URL",
-    "enableStarttls": "Enable StartTLS",
-    "useTruststoreSpi": "Use Truststore SPI",
-    "connectionPooling": "Connection pooling",
+    "enableStartTLS": "Enable StartTLS",
+    "useTruststoreSPI": "Use truststore SPI",
+    "connectionPooling": "Connection Pooling",
     "connectionTimeout": "Connection timeout",
     "bindType": "Bind type",
     "bindDn": "Bind DN",
     "bindCredentials": "Bind credentials",
 
-    "ldapSearchingAndUpdatingSettings": "LDAP searching and updating",
+    "LdapSearchingAndUpdatingSettings": "LDAP searching and updating",
     "editMode": "Edit mode",
     "usersDN": "Users DN",
     "usernameLdapAttribute": "Username LDAP attribute",

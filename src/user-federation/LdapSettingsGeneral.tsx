@@ -1,4 +1,10 @@
-import { Form, FormGroup, Select, TextInput } from "@patternfly/react-core";
+import {
+  Form,
+  FormGroup,
+  Select,
+  SelectOption,
+  TextInput,
+} from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
@@ -58,7 +64,17 @@ export const LdapSettingsGeneral = () => {
             // }}
             aria-label="Other"
             isDisabled
-          ></Select>
+          >
+            {/* {configFormats.map((configFormat) => ( */}
+            <SelectOption
+              key={"key"}
+              value={"value"}
+              // isSelected={selected === configFormat.id}
+            >
+              {"display name"}
+            </SelectOption>
+            {/* ))} */}
+          </Select>
         </FormGroup>
       </Form>
     </>
