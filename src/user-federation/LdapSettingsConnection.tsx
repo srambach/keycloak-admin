@@ -11,7 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
-import { EyeIcon, SearchIcon } from "@patternfly/react-icons";
+import { EyeIcon } from "@patternfly/react-icons";
 
 export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
