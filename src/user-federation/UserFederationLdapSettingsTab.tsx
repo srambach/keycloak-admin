@@ -1,7 +1,33 @@
-import { PageSection } from "@patternfly/react-core";
+import {
+  Card,
+  CardTitle,
+  Divider,
+  DropdownItem,
+  Form,
+  FormGroup,
+  Gallery,
+  PageSection,
+  Select,
+  SelectOption,
+  Split,
+  SplitItem,
+  Switch,
+  Tab,
+  TabContent,
+  Tabs,
+  TabTitleText,
+  Text,
+  TextContent,
+  TextInput,
+  TextVariants,
+} from "@patternfly/react-core";
+import { DatabaseIcon } from "@patternfly/react-icons";
 import { useTranslation } from "react-i18next";
 import React from "react";
+import { ViewHeader } from "../components/view-header/ViewHeader";
+import { PageBreadCrumbs } from "../components/bread-crumb/PageBreadCrumbs";
 import { ScrollForm } from "../components/scroll-form/ScrollForm";
+import { HelpItem } from "../components/help-enabler/HelpItem";
 import { LdapSettingsAdvanced } from "./LdapSettingsAdvanced";
 import { LdapSettingsKerberosIntegration } from "./LdapSettingsKerberosIntegration";
 import { LdapSettingsCache } from "./LdapSettingsCache";
@@ -12,6 +38,7 @@ import { LdapSettingsSearching } from "./LdapSettingsSearching";
 
 export const UserFederationLdapSettingsTab = () => {
   const { t } = useTranslation("user-federation");
+  const helpText = useTranslation("user-federation-help").t;
 
   return (
     <>
@@ -20,7 +47,7 @@ export const UserFederationLdapSettingsTab = () => {
           sections={[
             t("generalOptions"),
             t("connectionAndAuthenticationSettings"),
-            t("ldapSearchingAndUpdatingSettings"),
+            t("LdapSearchingAndUpdatingSettings"),
             t("synchronizationSettings"),
             t("kerberosIntegration"),
             t("cacheSettings"),
@@ -30,10 +57,10 @@ export const UserFederationLdapSettingsTab = () => {
           {/* General settings */}
           <LdapSettingsGeneral />
 
-          {/* Connection settings */}
+          {/* General settings */}
           <LdapSettingsConnection />
 
-          {/* Searching and updating settings */}
+          {/* Synchronization settings */}
           <LdapSettingsSearching />
 
           {/* Synchronization settings */}

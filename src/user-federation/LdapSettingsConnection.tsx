@@ -1,6 +1,8 @@
 import {
+  Button,
   Form,
   FormGroup,
+  InputGroup,
   Select,
   SelectOption,
   Switch,
@@ -9,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { EyeIcon, SearchIcon } from "@patternfly/react-icons";
 
 export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
@@ -24,17 +27,17 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("consoleDisplayConnectionUrlHelp")}
               forLabel={t("connectionURL")}
-              forID="kc-console-connection-url"
+              forID="kc-connection-url"
             />
           }
-          fieldId="kc-console-connection-url"
+          fieldId="kc-connection-url"
           isRequired
         >
           <TextInput
             isRequired
             type="text"
-            id="kc-console-connection-url"
-            name="kc-console-connection-url"
+            id="kc-connection-url"
+            name="kc-connection-url"
             // value={value1}
             // onChange={this.handleTextInputChange1}
           />
@@ -126,15 +129,15 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("connectionTimeoutHelp")}
               forLabel={t("connectionTimeout")}
-              forID="kc-console-connection-timeout"
+              forID="kc-connection-timeout"
             />
           }
-          fieldId="kc-console-connection-timeout"
+          fieldId="kc-connection-timeout"
         >
           <TextInput
             type="text"
-            id="kc-console-connection-timeout"
-            name="kc-console-connection-timeout"
+            id="kc-connection-timeout"
+            name="kc-connection-timeout"
             // value={value1}
             // onChange={this.handleTextInputChange1}
           />
@@ -164,17 +167,7 @@ export const LdapSettingsConnection = () => {
             //   setOpenType(false);
             // }}
             aria-label="simple" // TODO
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption>
-            {/* ))} */}
-          </Select>
+          ></Select>
         </FormGroup>
 
         <FormGroup
@@ -183,15 +176,15 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("bindDnHelp")}
               forLabel={t("bindDn")}
-              forID="kc-console-bind-dn"
+              forID="kc-bind-dn"
             />
           }
-          fieldId="kc-console-bind-dn"
+          fieldId="kc-bind-dn"
         >
           <TextInput
             type="text"
-            id="kc-console-bind-dn"
-            name="kc-console-bind-dn"
+            id="kc-bind-dn"
+            name="kc-bind-dn"
             // value={value1}
             // onChange={this.handleTextInputChange1}
           />
@@ -203,20 +196,27 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("bindCredentialsHelp")}
               forLabel={t("bindCredentials")}
-              forID="kc-console-bind-credentials"
+              forID="kc-bind-credentials"
             />
           }
-          fieldId="kc-console-bind-credentials"
+          fieldId="kc-bind-credentials"
           isRequired
         >
-          <TextInput // TODO: Make password field
-            isRequired
-            type="text"
-            id="kc-console-bind-credentials"
-            name="kc-console-bind-credentials"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
-          />
+          <InputGroup>
+            <TextInput
+              name="kc-bind-credentials"
+              id="kc-bind-credentials"
+              type="password"
+              aria-label="bind credentials"
+              isRequired
+            />
+            <Button
+              variant="control"
+              aria-label="show password button for bind credentials"
+            >
+              <EyeIcon />
+            </Button>
+          </InputGroup>
         </FormGroup>
       </Form>
     </>

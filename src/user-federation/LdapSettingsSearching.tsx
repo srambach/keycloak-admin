@@ -40,7 +40,7 @@ export const LdapSettingsSearching = () => {
             //   setSelected(value as string);
             //   setOpenType(false);
             // }}
-            aria-label="Select a mode" // TODO
+            aria-label="Select a mode"
           >
             {/* {configFormats.map((configFormat) => ( */}
             <SelectOption

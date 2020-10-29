@@ -64,17 +64,7 @@ export const LdapSettingsGeneral = () => {
             // }}
             aria-label="Other"
             isDisabled
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption>
-            {/* ))} */}
-          </Select>
+          ></Select>
         </FormGroup>
       </Form>
     </>
