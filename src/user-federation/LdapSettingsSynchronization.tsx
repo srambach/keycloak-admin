@@ -12,6 +12,28 @@ export const LdapSettingsSynchronization = () => {
       {/* Synchronization settings */}
       <Form isHorizontal>
         <FormGroup
+          label={t("importUsers")}
+          labelIcon={
+            <HelpItem
+              helpText={helpText("importUsersHelp")}
+              forLabel={t("importUsers")}
+              forID="kc-import-users"
+            />
+          }
+          fieldId="kc-import-users"
+          hasNoPaddingTop
+        >
+          <Switch
+            id={"kc-import-users"}
+            isChecked={true}
+            isDisabled={false}
+            onChange={() => undefined as any} //TODO: switch shows/hides other fields
+            label={t("common:on")}
+            labelOff={t("common:off")}
+          />
+        </FormGroup>
+
+        <FormGroup
           label={t("batchSize")}
           labelIcon={
             <HelpItem

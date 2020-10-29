@@ -43,7 +43,6 @@ export const LdapSettingsCache = () => {
             >
               {"display name"}
             </SelectOption>
-            {/* ))} */}
           </Select>
         </FormGroup>
       </Form>
