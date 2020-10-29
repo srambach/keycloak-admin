@@ -30,10 +30,10 @@ export const UserFederationLdapSettingsTab = () => {
           {/* General settings */}
           <LdapSettingsGeneral />
 
-          {/* General settings */}
+          {/* Connection settings */}
           <LdapSettingsConnection />
 
-          {/* Synchronization settings */}
+          {/* Searching and updating settings */}
           <LdapSettingsSearching />
 
           {/* Synchronization settings */}
