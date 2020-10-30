@@ -20,7 +20,7 @@ export const UserFederationLdapSettingsTab = () => {
           sections={[
             t("generalOptions"),
             t("connectionAndAuthenticationSettings"),
-            t("LdapSearchingAndUpdatingSettings"),
+            t("ldapSearchingAndUpdatingSettings"),
             t("synchronizationSettings"),
             t("kerberosIntegration"),
             t("cacheSettings"),

@@ -44,11 +44,11 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("enableStartTLS")}
+          label={t("enableStarttls")}
           labelIcon={
             <HelpItem
-              helpText={helpText("enableStartTlsHelp")}
-              forLabel={t("enableStartTLS")}
+              helpText={helpText("enableStarttlsHelp")}
+              forLabel={t("enableStarttls")}
               forID="kc-enable-start-tls"
             />
           }
@@ -66,11 +66,11 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("useTruststoreSPI")}
+          label={t("useTruststoreSpi")}
           labelIcon={
             <HelpItem
               helpText={helpText("useTruststoreSpiHelp")}
-              forLabel={t("useTruststoreSPI")}
+              forLabel={t("useTruststoreSpi")}
               forID="kc-use-truststore-spi"
             />
           }
