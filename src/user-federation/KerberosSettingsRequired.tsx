@@ -19,7 +19,7 @@ export const KerberosSettingsRequired = () => {
 
   return (
     <>
-      {/* Cache settings */}
+      {/* Required settings */}
       <Form isHorizontal>
         <FormGroup
           label={t("consoleDisplayName")}
@@ -75,6 +75,7 @@ export const KerberosSettingsRequired = () => {
             />
           }
           fieldId="kc-server-principal"
+          isRequired
         >
           <TextInput
             isRequired
@@ -96,6 +97,7 @@ export const KerberosSettingsRequired = () => {
             />
           }
           fieldId="kc-key-tab"
+          isRequired
         >
           <TextInput
             isRequired
