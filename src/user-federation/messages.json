@@ -7,7 +7,7 @@
     "providers": "Add providers",
     "addKerberos": "Add Kerberos providers",
     "addLdap": "Add LDAP providers",
-    "Ldap": "LDAP",
+
     "syncChangedUsers": "Sync changed users",
     "syncAllUsers": "Sync all users",
     "unlinkUsers": "Unlink users",
