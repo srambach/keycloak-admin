@@ -2,15 +2,26 @@ import { Form, FormGroup, Switch } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapKerberosIntegrationRepresentation } from "./models/user-federation";
 
 export const LdapSettingsKerberosIntegration = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapKerberosIntegrationRepresentation
+  >();
+  const onSubmit = (
+    data: UserFederationLdapKerberosIntegrationRepresentation
+  ) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Kerberos integration */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("allowKerberosAuthentication")}
           labelIcon={
@@ -54,6 +65,8 @@ export const LdapSettingsKerberosIntegration = () => {
             labelOff={t("common:off")}
           />
         </FormGroup>
+
+        <button type="submit">Test submit</button>
       </Form>
     </>
   );

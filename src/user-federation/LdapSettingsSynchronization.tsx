@@ -2,15 +2,24 @@ import { Form, FormGroup, Switch, TextInput } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapSynchronizationRepresentation } from "./models/user-federation";
 
 export const LdapSettingsSynchronization = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapSynchronizationRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapSynchronizationRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Synchronization settings */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("importUsers")}
           labelIcon={
@@ -90,6 +99,8 @@ export const LdapSettingsSynchronization = () => {
             labelOff={t("common:off")}
           />
         </FormGroup>
+
+        <button type="submit">Test submit</button>
       </Form>
     </>
   );

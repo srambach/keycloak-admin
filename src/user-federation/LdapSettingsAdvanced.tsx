@@ -2,14 +2,23 @@ import { Form, FormGroup, Switch } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapGeneralRepresentation } from "./models/user-federation";
 
 export const LdapSettingsAdvanced = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapGeneralRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapGeneralRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("enableLdapv3Password")}
           labelIcon={
@@ -75,6 +84,8 @@ export const LdapSettingsAdvanced = () => {
             labelOff={t("common:off")}
           />
         </FormGroup>
+
+        <button type="submit">Test submit</button>
       </Form>
     </>
   );

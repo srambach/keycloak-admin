@@ -2,15 +2,24 @@ import { Form, FormGroup, Select, SelectOption } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapCacheRepresentation } from "./models/user-federation";
 
 export const LdapSettingsCache = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapCacheRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapCacheRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Cache settings */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("cachePolicy")}
           labelIcon={
@@ -36,15 +45,17 @@ export const LdapSettingsCache = () => {
             aria-label="Select Input"
           >
             {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
+            {/* <SelectOption
               key={"key"}
               value={"value"}
               // isSelected={selected === configFormat.id}
             >
               {"display name"}
-            </SelectOption>
+            </SelectOption> */}
           </Select>
         </FormGroup>
+
+        <button type="submit">Test submit</button>
       </Form>
     </>
   );
