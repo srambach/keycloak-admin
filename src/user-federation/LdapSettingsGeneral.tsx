@@ -2,15 +2,24 @@ import { Form, FormGroup, Select, TextInput } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapGeneralRepresentation } from "./models/user-federation";
 
 export const LdapSettingsGeneral = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapGeneralRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapGeneralRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Cache settings */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("consoleDisplayName")}
           labelIcon={
@@ -28,8 +37,7 @@ export const LdapSettingsGeneral = () => {
             type="text"
             id="kc-console-display-name"
             name="kc-console-display-name"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -60,6 +68,7 @@ export const LdapSettingsGeneral = () => {
             isDisabled
           ></Select>
         </FormGroup>
+        <button type="submit">Test submit</button>
       </Form>
     </>
   );

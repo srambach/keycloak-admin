@@ -9,15 +9,24 @@ import {
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapSearchingRepresentation } from "./models/user-federation";
 
 export const LdapSettingsSearching = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapSearchingRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapSearchingRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Cache settings */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("editMode")}
           labelIcon={
@@ -43,13 +52,13 @@ export const LdapSettingsSearching = () => {
             aria-label="Select a mode"
           >
             {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
+            {/* <SelectOption
               key={"key"}
               value={"value"}
               // isSelected={selected === configFormat.id}
             >
               {"display name"}
-            </SelectOption>
+            </SelectOption> */}
             {/* ))} */}
           </Select>
         </FormGroup>
@@ -71,8 +80,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-console-users-dn"
             name="kc-console-users-dn"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -93,8 +101,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-username-ldap-attribute"
             name="kc-username-ldap-attribute"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -115,8 +122,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-rdn-ldap-attribute"
             name="kc-rdn-ldap-attribute"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -137,8 +143,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-uuid-ldap-attribute"
             name="kc-uuid-ldap-attribute"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -159,8 +164,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-user-object-classes"
             name="kc-user-object-classes"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -189,13 +193,13 @@ export const LdapSettingsSearching = () => {
             aria-label="Only for LDAPS" // TODO
           >
             {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
+            {/* <SelectOption
               key={"key"}
               value={"value"}
               // isSelected={selected === configFormat.id}
             >
               {"display name"}
-            </SelectOption>
+            </SelectOption> */}
             {/* ))} */}
           </Select>
         </FormGroup>
@@ -225,13 +229,13 @@ export const LdapSettingsSearching = () => {
             aria-label="Only for LDAPS" // TODO
           >
             {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
+            {/* <SelectOption
               key={"key"}
               value={"value"}
               // isSelected={selected === configFormat.id}
             >
               {"display name"}
-            </SelectOption>
+            </SelectOption> */}
             {/* ))} */}
           </Select>
         </FormGroup>
@@ -251,8 +255,7 @@ export const LdapSettingsSearching = () => {
             type="text"
             id="kc-read-timeout"
             name="kc-read-timeout"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            ref={register}
           />
         </FormGroup>
 
@@ -277,6 +280,8 @@ export const LdapSettingsSearching = () => {
             labelOff={t("common:off")}
           />
         </FormGroup>
+
+        <button type="submit">Test Submit</button>
       </Form>
     </>
   );

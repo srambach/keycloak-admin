@@ -31,6 +31,7 @@ import { MapperList } from "../details/MapperList";
 
 export const ClientScopeForm = () => {
   const { t } = useTranslation("client-scopes");
+  // const { register, control, handleSubmit, errors, setValue } = useForm;
   const { register, control, handleSubmit, errors, setValue } = useForm<
     ClientScopeRepresentation
   >();

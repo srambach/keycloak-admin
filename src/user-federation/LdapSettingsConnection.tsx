@@ -11,44 +11,52 @@ import {
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
+import { useForm } from "react-hook-form";
+import { UserFederationLdapConnectionRepresentation } from "./models/user-federation";
 import { EyeIcon } from "@patternfly/react-icons";
 
 export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
+  const { register, handleSubmit } = useForm<
+    UserFederationLdapConnectionRepresentation
+  >();
+  const onSubmit = (data: UserFederationLdapConnectionRepresentation) => {
+    console.log(data);
+  };
+
   return (
     <>
       {/* Cache settings */}
-      <Form isHorizontal>
+      <Form isHorizontal onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           label={t("connectionURL")}
           labelIcon={
             <HelpItem
               helpText={helpText("consoleDisplayConnectionUrlHelp")}
               forLabel={t("connectionURL")}
-              forID="kc-connection-url"
+              forID="kc-console-connection-url"
             />
           }
-          fieldId="kc-connection-url"
+          fieldId="kc-console-connection-url"
           isRequired
         >
           <TextInput
             isRequired
             type="text"
-            id="kc-connection-url"
-            name="kc-connection-url"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            id="kc-console-connection-url"
+            name="kc-console-connection-url"
+            ref={register}
           />
         </FormGroup>
 
         <FormGroup
-          label={t("enableStarttls")}
+          label={t("enableStartTLS")}
           labelIcon={
             <HelpItem
               helpText={helpText("enableStarttlsHelp")}
-              forLabel={t("enableStarttls")}
+              forLabel={t("enableStartTLS")}
               forID="kc-enable-start-tls"
             />
           }
@@ -66,11 +74,11 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("useTruststoreSpi")}
+          label={t("useTruststoreSPI")}
           labelIcon={
             <HelpItem
               helpText={helpText("useTruststoreSpiHelp")}
-              forLabel={t("useTruststoreSpi")}
+              forLabel={t("useTruststoreSPI")}
               forID="kc-use-truststore-spi"
             />
           }
@@ -90,13 +98,13 @@ export const LdapSettingsConnection = () => {
             aria-label="Only for LDAPS" // TODO
           >
             {/* {configFormats.map((configFormat) => ( */}
-            <SelectOption
+            {/* <SelectOption
               key={"key"}
               value={"value"}
               // isSelected={selected === configFormat.id}
             >
               {"display name"}
-            </SelectOption>
+            </SelectOption> */}
             {/* ))} */}
           </Select>
         </FormGroup>
@@ -129,17 +137,16 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("connectionTimeoutHelp")}
               forLabel={t("connectionTimeout")}
-              forID="kc-connection-timeout"
+              forID="kc-console-connection-timeout"
             />
           }
-          fieldId="kc-connection-timeout"
+          fieldId="kc-console-connection-timeout"
         >
           <TextInput
             type="text"
-            id="kc-connection-timeout"
-            name="kc-connection-timeout"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            id="kc-console-connection-timeout"
+            name="kc-console-connection-timeout"
+            ref={register}
           />
         </FormGroup>
 
@@ -176,17 +183,16 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("bindDnHelp")}
               forLabel={t("bindDn")}
-              forID="kc-bind-dn"
+              forID="kc-console-bind-dn"
             />
           }
-          fieldId="kc-bind-dn"
+          fieldId="kc-console-bind-dn"
         >
           <TextInput
             type="text"
-            id="kc-bind-dn"
-            name="kc-bind-dn"
-            // value={value1}
-            // onChange={this.handleTextInputChange1}
+            id="kc-console-bind-dn"
+            name="kc-console-bind-dn"
+            ref={register}
           />
         </FormGroup>
 
@@ -196,19 +202,19 @@ export const LdapSettingsConnection = () => {
             <HelpItem
               helpText={helpText("bindCredentialsHelp")}
               forLabel={t("bindCredentials")}
-              forID="kc-bind-credentials"
+              forID="kc-console-bind-credentials"
             />
           }
-          fieldId="kc-bind-credentials"
+          fieldId="kc-console-bind-credentials"
           isRequired
         >
           <InputGroup>
-            <TextInput
-              name="kc-bind-credentials"
-              id="kc-bind-credentials"
-              type="password"
-              aria-label="bind credentials"
+            <TextInput // TODO: Make password field
               isRequired
+              type="text"
+              id="kc-console-bind-credentials"
+              name="kc-console-bind-credentials"
+              ref={register}
             />
             <Button
               variant="control"
@@ -218,6 +224,8 @@ export const LdapSettingsConnection = () => {
             </Button>
           </InputGroup>
         </FormGroup>
+
+        <button type="submit">Test Submit</button>
       </Form>
     </>
   );
