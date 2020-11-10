@@ -62,29 +62,32 @@ export const LdapSettingsGeneral = () => {
           isRequired
         >
           <Controller
+            name="vendor"
+            defaultValue=""
+            control={control}
             render={({ onChange, value }) => (
               <Select
                 toggleId="kc-vendor"
+                required
                 onToggle={() => isOpen(!open)}
-                variant={SelectVariant.single}
-                selections={value}
+                isOpen={open}
                 onSelect={(_, value) => {
                   onChange(value as string);
                   isOpen(false);
                 }}
-                aria-label="Other"
+                selections={value}
+                variant={SelectVariant.single}
+                // aria-label="Other"
                 // isDisabled
               >
                 <SelectOption key={0} value="Choose..." isPlaceholder />
-                <SelectOption key={1} value="Mr" />
-                <SelectOption key={2} value="Miss" />
-                <SelectOption key={3} value="Mrs" />
-                <SelectOption key={4} value="Ms" />
+                <SelectOption key={1} value="Active Directory" />
+                <SelectOption key={2} value="Red Hat Directory Server" />
+                <SelectOption key={3} value="Tivoli" />
+                <SelectOption key={4} value="Novell eDirectory" />
+                <SelectOption key={5} value="Other" />
               </Select>
             )}
-            control={control}
-            name="vendor"
-            defaultValue="1"
           ></Controller>
         </FormGroup>
         <button type="submit">Test submit</button>

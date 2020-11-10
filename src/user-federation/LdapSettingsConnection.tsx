@@ -5,13 +5,14 @@ import {
   InputGroup,
   Select,
   SelectOption,
+  SelectVariant,
   Switch,
   TextInput,
 } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React from "react";
+import React, { useState } from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { UserFederationLdapConnectionRepresentation } from "./models/user-federation";
 import { EyeIcon } from "@patternfly/react-icons";
 
@@ -19,7 +20,8 @@ export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const { register, handleSubmit } = useForm<
+  const [open, isOpen] = useState(false);
+  const { register, handleSubmit, control } = useForm<
     UserFederationLdapConnectionRepresentation
   >();
   const onSubmit = (data: UserFederationLdapConnectionRepresentation) => {
@@ -52,11 +54,11 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("enableStartTLS")}
+          label={t("enableStarttls")}
           labelIcon={
             <HelpItem
               helpText={helpText("enableStarttlsHelp")}
-              forLabel={t("enableStartTLS")}
+              forLabel={t("enableStarttls")}
               forID="kc-enable-start-tls"
             />
           }
@@ -74,39 +76,43 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("useTruststoreSPI")}
+          label={t("useTruststoreSpi")}
           labelIcon={
             <HelpItem
               helpText={helpText("useTruststoreSpiHelp")}
-              forLabel={t("useTruststoreSPI")}
+              forLabel={t("useTruststoreSpi")}
               forID="kc-use-truststore-spi"
             />
           }
           fieldId="kc-use-truststore-spi"
         >
-          <Select
-            toggleId="kc-use-truststore-spi"
-            // isOpen={openType}
-            onToggle={() => {}}
-            // variant={SelectVariant.single}
-            // value={selected}
-            // selections={selected}
-            // onSelect={(_, value) => {
-            //   setSelected(value as string);
-            //   setOpenType(false);
-            // }}
-            aria-label="Only for LDAPS" // TODO
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            {/* <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption> */}
-            {/* ))} */}
-          </Select>
+          <Controller
+            name="useTruststoreSpi"
+            defaultValue="foo"
+            control={control}
+            render={({ onChange, value }) => (
+              <Select
+                toggleId="kc-use-truststore-spi"
+                onToggle={() => isOpen(!open)}
+                isOpen={open}
+                onSelect={(_, value) => {
+                  onChange(value as string);
+                  isOpen(false);
+                }}
+                selections={value}
+                variant={SelectVariant.single}
+                // aria-label="Other"
+                // isDisabled
+              >
+                <SelectOption
+                  key={0}
+                  value="LDAP connection URL"
+                  isPlaceholder
+                />
+                <SelectOption key={1} value="something else" />
+              </Select>
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -162,19 +168,33 @@ export const LdapSettingsConnection = () => {
           fieldId="kc-bind-type"
           isRequired
         >
-          <Select
-            toggleId="kc-bind-type"
-            // isOpen={openType}
-            onToggle={() => {}}
-            // variant={SelectVariant.single}
-            // value={selected}
-            // selections={selected}
-            // onSelect={(_, value) => {
-            //   setSelected(value as string);
-            //   setOpenType(false);
-            // }}
-            aria-label="simple" // TODO
-          ></Select>
+          <Controller
+            name="bindType"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Select
+                toggleId="kc-bind-type"
+                required
+                onToggle={() => isOpen(!open)}
+                isOpen={open}
+                onSelect={(_, value) => {
+                  onChange(value as string);
+                  isOpen(false);
+                }}
+                selections={value}
+                variant={SelectVariant.single}
+                // aria-label="simple" // TODO
+              >
+                <SelectOption
+                  key={3}
+                  value="Connection timeout"
+                  isPlaceholder
+                />
+                <SelectOption key={4} value="something" />
+              </Select>
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
