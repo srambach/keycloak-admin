@@ -20,7 +20,8 @@ export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const [open, isOpen] = useState(false);
+  const [isSPIDropdownOpen, setIsSPIDropdownOpen] = useState(false);
+  const [isBindTypeDropdownOpen, setIsBindTypeDropdownOpen] = useState(false);
   const { register, handleSubmit, control } = useForm<
     UserFederationLdapConnectionRepresentation
   >();
@@ -93,11 +94,11 @@ export const LdapSettingsConnection = () => {
             render={({ onChange, value }) => (
               <Select
                 toggleId="kc-use-truststore-spi"
-                onToggle={() => isOpen(!open)}
-                isOpen={open}
+                onToggle={() => setIsSPIDropdownOpen(!isSPIDropdownOpen)}
+                isOpen={isSPIDropdownOpen}
                 onSelect={(_, value) => {
                   onChange(value as string);
-                  isOpen(false);
+                  setIsSPIDropdownOpen(false);
                 }}
                 selections={value}
                 variant={SelectVariant.single}
@@ -176,11 +177,11 @@ export const LdapSettingsConnection = () => {
               <Select
                 toggleId="kc-bind-type"
                 required
-                onToggle={() => isOpen(!open)}
-                isOpen={open}
+                onToggle={() => setIsBindTypeDropdownOpen(!isBindTypeDropdownOpen)}
+                isOpen={isBindTypeDropdownOpen}
                 onSelect={(_, value) => {
                   onChange(value as string);
-                  isOpen(false);
+                  setIsBindTypeDropdownOpen(false);
                 }}
                 selections={value}
                 variant={SelectVariant.single}
