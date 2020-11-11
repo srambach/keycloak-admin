@@ -1,6 +1,6 @@
 import { Form, FormGroup, Switch } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
+import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
 import { useForm, Controller } from "react-hook-form";
 import { UserFederationLdapKerberosIntegrationRepresentation } from "./models/user-federation";
@@ -9,7 +9,7 @@ export const LdapSettingsKerberosIntegration = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const { register, handleSubmit, control } = useForm<
+  const { handleSubmit, control } = useForm<
     UserFederationLdapKerberosIntegrationRepresentation
   >();
   const onSubmit = (

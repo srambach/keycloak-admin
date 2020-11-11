@@ -1,6 +1,6 @@
 import { Form, FormGroup, Switch, TextInput } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
+import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
 import { useForm, Controller } from "react-hook-form";
 import { UserFederationLdapSynchronizationRepresentation } from "./models/user-federation";
@@ -8,15 +8,6 @@ import { UserFederationLdapSynchronizationRepresentation } from "./models/user-f
 export const LdapSettingsSynchronization = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
-
-  const [isImportUsersSwitchOn, setIsImportUsersSwitchOn] = useState(false);
-  const [isPeriodicFullSyncSwitchOn, setIsPeriodicFullSyncSwitchOn] = useState(
-    false
-  );
-  const [
-    isPeriodicChangedUsersSyncSwitchOn,
-    setIsPeriodicChangedUsersSyncSwitchOn,
-  ] = useState(false);
 
   const { register, handleSubmit, control } = useForm<
     UserFederationLdapSynchronizationRepresentation
@@ -51,13 +42,11 @@ export const LdapSettingsSynchronization = () => {
                 isChecked={value}
                 isDisabled={false}
                 onChange={onChange}
-                label={t("common:on")}
-                labelOff={t("common:off")}
+                aria-label={t("importUsers") + " " + t("common:on")}
               />
             )}
           ></Controller>
         </FormGroup>
-
         <FormGroup
           label={t("batchSize")}
           labelIcon={
@@ -76,7 +65,6 @@ export const LdapSettingsSynchronization = () => {
             ref={register}
           />
         </FormGroup>
-
         <FormGroup
           label={t("periodicFullSync")}
           labelIcon={
@@ -105,7 +93,6 @@ export const LdapSettingsSynchronization = () => {
             )}
           ></Controller>
         </FormGroup>
-
         <FormGroup
           label={t("periodicChangedUsersSync")}
           labelIcon={
@@ -134,7 +121,6 @@ export const LdapSettingsSynchronization = () => {
             )}
           ></Controller>
         </FormGroup>
-
         <button type="submit">Test submit</button>
       </Form>
     </>

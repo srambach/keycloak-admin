@@ -19,7 +19,7 @@ export const LdapSettingsCache = () => {
     false
   );
 
-  const { register, handleSubmit, control } = useForm<
+  const { handleSubmit, control } = useForm<
     UserFederationLdapCacheRepresentation
   >();
   const onSubmit = (data: UserFederationLdapCacheRepresentation) => {

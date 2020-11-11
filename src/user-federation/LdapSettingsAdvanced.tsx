@@ -1,6 +1,6 @@
 import { Form, FormGroup, Switch } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
+import React from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
 import { useForm, Controller } from "react-hook-form";
 import { UserFederationLdapAdvancedRepresentation } from "./models/user-federation";
@@ -9,17 +9,7 @@ export const LdapSettingsAdvanced = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  // const [
-  //   isEnableLdapv3PasswordSwitchOn,
-  //   setIsEnableLdapv3PasswordSwitchOn,
-  // ] = useState(false);
-  // const [
-  //   isValidatePasswordPolicySwitchOn,
-  //   setIsValidatePasswordPolicySwitchOn,
-  // ] = useState(false);
-  // const [isTrustEmailSwitchOn, setIsTrustEmailSwitchOn] = useState(false);
-
-  const { register, handleSubmit, control } = useForm<
+  const { handleSubmit, control } = useForm<
     UserFederationLdapAdvancedRepresentation
   >();
   const onSubmit = (data: UserFederationLdapAdvancedRepresentation) => {
@@ -72,7 +62,7 @@ export const LdapSettingsAdvanced = () => {
         >
           <Controller
             name="validatePasswordPolicy"
-            defaultValue=""
+            defaultValue={false}
             control={control}
             render={({ onChange, value }) => (
               <Switch
@@ -101,7 +91,7 @@ export const LdapSettingsAdvanced = () => {
         >
           <Controller
             name="trustEmail"
-            defaultValue=""
+            defaultValue={false}
             control={control}
             render={({ onChange, value }) => (
               <Switch
@@ -109,6 +99,8 @@ export const LdapSettingsAdvanced = () => {
                 isChecked={value}
                 isDisabled={false}
                 onChange={onChange}
+                label={t("common:on")}
+                labelOff={t("common:off")}
               />
             )}
           ></Controller>

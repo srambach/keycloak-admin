@@ -58,11 +58,11 @@ export const LdapSettingsConnection = () => {
         </FormGroup>
 
         <FormGroup
-          label={t("enableStartls")}
+          label={t("enableStartTls")}
           labelIcon={
             <HelpItem
-              helpText={helpText("enableStarttlsHelp")}
-              forLabel={t("enableStarttls")}
+              helpText={helpText("enableStartTlsHelp")}
+              forLabel={t("enableStartTls")}
               forID="kc-enable-start-tls"
             />
           }
@@ -263,6 +263,12 @@ export const LdapSettingsConnection = () => {
               <EyeIcon />
             </Button>
           </InputGroup>
+        </FormGroup>
+
+        <FormGroup fieldId="kc-test-button">
+          <Button variant="secondary" id="kc-test-button">
+            Test
+          </Button>
         </FormGroup>
 
         <button type="submit">Test Submit</button>
