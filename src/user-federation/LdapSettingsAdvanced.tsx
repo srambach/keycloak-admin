@@ -1,18 +1,28 @@
 import { Form, FormGroup, Switch } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React from "react";
+import React, { useState } from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
-import { useForm } from "react-hook-form";
-import { UserFederationLdapGeneralRepresentation } from "./models/user-federation";
+import { useForm, Controller } from "react-hook-form";
+import { UserFederationLdapAdvancedRepresentation } from "./models/user-federation";
 
 export const LdapSettingsAdvanced = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const { register, handleSubmit } = useForm<
-    UserFederationLdapGeneralRepresentation
+  // const [
+  //   isEnableLdapv3PasswordSwitchOn,
+  //   setIsEnableLdapv3PasswordSwitchOn,
+  // ] = useState(false);
+  // const [
+  //   isValidatePasswordPolicySwitchOn,
+  //   setIsValidatePasswordPolicySwitchOn,
+  // ] = useState(false);
+  // const [isTrustEmailSwitchOn, setIsTrustEmailSwitchOn] = useState(false);
+
+  const { register, handleSubmit, control } = useForm<
+    UserFederationLdapAdvancedRepresentation
   >();
-  const onSubmit = (data: UserFederationLdapGeneralRepresentation) => {
+  const onSubmit = (data: UserFederationLdapAdvancedRepresentation) => {
     console.log(data);
   };
 
@@ -31,14 +41,21 @@ export const LdapSettingsAdvanced = () => {
           fieldId="kc-enable-ldapv3-password"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-enable-ldapv3-password"}
-            isChecked={false}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="enableLadpv3PasswordModify"
+            defaultValue={false}
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-enable-ldapv3-password"}
+                isChecked={value}
+                isDisabled={false}
+                onChange={onChange}
+                label={t("common:on")}
+                labelOff={t("common:off")}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -53,14 +70,21 @@ export const LdapSettingsAdvanced = () => {
           fieldId="kc-validate-password-policy"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-validate-password-policy"}
-            isChecked={false}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="validatePasswordPolicy"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-validate-password-policy"}
+                isChecked={value}
+                isDisabled={false}
+                onChange={onChange}
+                label={t("common:on")}
+                labelOff={t("common:off")}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -75,14 +99,19 @@ export const LdapSettingsAdvanced = () => {
           fieldId="kc-trust-email"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-trust-email"}
-            isChecked={false}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="trustEmail"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-trust-email"}
+                isChecked={value}
+                isDisabled={false}
+                onChange={onChange}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <button type="submit">Test submit</button>

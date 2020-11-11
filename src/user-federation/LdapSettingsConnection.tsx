@@ -20,7 +20,10 @@ export const LdapSettingsConnection = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const [isSPIDropdownOpen, setIsSPIDropdownOpen] = useState(false);
+  const [
+    isTruststoreSpiDropdownOpen,
+    setIsTruststoreSpiDropdownOpen,
+  ] = useState(false);
   const [isBindTypeDropdownOpen, setIsBindTypeDropdownOpen] = useState(false);
   const { register, handleSubmit, control } = useForm<
     UserFederationLdapConnectionRepresentation
@@ -49,13 +52,13 @@ export const LdapSettingsConnection = () => {
             isRequired
             type="text"
             id="kc-console-connection-url"
-            name="kc-console-connection-url"
+            name="connectionUrl"
             ref={register}
           />
         </FormGroup>
 
         <FormGroup
-          label={t("enableStarttls")}
+          label={t("enableStartls")}
           labelIcon={
             <HelpItem
               helpText={helpText("enableStarttlsHelp")}
@@ -66,14 +69,21 @@ export const LdapSettingsConnection = () => {
           fieldId="kc-enable-start-tls"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-enable-start-tls"}
-            isChecked={true}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="enableStartTls"
+            defaultValue={false}
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-enable-start-tls"}
+                isChecked={value}
+                isDisabled={false}
+                onChange={onChange}
+                label={t("common:on")}
+                labelOff={t("common:off")}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -89,21 +99,21 @@ export const LdapSettingsConnection = () => {
         >
           <Controller
             name="useTruststoreSpi"
-            defaultValue="foo"
+            defaultValue=""
             control={control}
             render={({ onChange, value }) => (
               <Select
                 toggleId="kc-use-truststore-spi"
-                onToggle={() => setIsSPIDropdownOpen(!isSPIDropdownOpen)}
-                isOpen={isSPIDropdownOpen}
+                onToggle={() =>
+                  setIsTruststoreSpiDropdownOpen(!isTruststoreSpiDropdownOpen)
+                }
+                isOpen={isTruststoreSpiDropdownOpen}
                 onSelect={(_, value) => {
                   onChange(value as string);
-                  setIsSPIDropdownOpen(false);
+                  setIsTruststoreSpiDropdownOpen(false);
                 }}
                 selections={value}
                 variant={SelectVariant.single}
-                // aria-label="Other"
-                // isDisabled
               >
                 <SelectOption
                   key={0}
@@ -128,14 +138,21 @@ export const LdapSettingsConnection = () => {
           fieldId="kc-connection-pooling"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-connection-pooling"}
-            isChecked={true}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="connectionPooling"
+            defaultValue={false}
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-connection-pooling"}
+                isDisabled={false}
+                onChange={onChange}
+                isChecked={value}
+                label={t("common:on")}
+                labelOff={t("common:off")}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -152,7 +169,7 @@ export const LdapSettingsConnection = () => {
           <TextInput
             type="text"
             id="kc-console-connection-timeout"
-            name="kc-console-connection-timeout"
+            name="connectionTimeout"
             ref={register}
           />
         </FormGroup>
@@ -177,7 +194,9 @@ export const LdapSettingsConnection = () => {
               <Select
                 toggleId="kc-bind-type"
                 required
-                onToggle={() => setIsBindTypeDropdownOpen(!isBindTypeDropdownOpen)}
+                onToggle={() =>
+                  setIsBindTypeDropdownOpen(!isBindTypeDropdownOpen)
+                }
                 isOpen={isBindTypeDropdownOpen}
                 onSelect={(_, value) => {
                   onChange(value as string);
@@ -212,7 +231,7 @@ export const LdapSettingsConnection = () => {
           <TextInput
             type="text"
             id="kc-console-bind-dn"
-            name="kc-console-bind-dn"
+            name="bindDn"
             ref={register}
           />
         </FormGroup>
@@ -234,7 +253,7 @@ export const LdapSettingsConnection = () => {
               isRequired
               type="text"
               id="kc-console-bind-credentials"
-              name="kc-console-bind-credentials"
+              name="bindCredentials"
               ref={register}
             />
             <Button

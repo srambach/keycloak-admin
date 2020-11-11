@@ -3,20 +3,30 @@ import {
   FormGroup,
   Select,
   SelectOption,
+  SelectVariant,
   Switch,
   TextInput,
 } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import React from "react";
+import React, { useState } from "react";
 import { HelpItem } from "../components/help-enabler/HelpItem";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { UserFederationLdapSearchingRepresentation } from "./models/user-federation";
 
 export const LdapSettingsSearching = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const { register, handleSubmit } = useForm<
+  const [isEditModeDropdownOpen, setIsEditModeDropdownOpen] = useState(false);
+  const [
+    isUserLdapFilterModeDropdownOpen,
+    setIsUserLdapFilterModeDropdownOpen,
+  ] = useState(false);
+  const [isSearchScopeDropdownOpen, setIsSearchScopeDropdownOpen] = useState(
+    false
+  );
+
+  const { register, handleSubmit, control } = useForm<
     UserFederationLdapSearchingRepresentation
   >();
   const onSubmit = (data: UserFederationLdapSearchingRepresentation) => {
@@ -38,29 +48,34 @@ export const LdapSettingsSearching = () => {
           }
           fieldId="kc-edit-mode"
         >
-          <Select
-            toggleId="kc-edit-mode"
-            // isOpen={openType}
-            onToggle={() => {}}
-            // variant={SelectVariant.single}
-            // value={selected}
-            // selections={selected}
-            // onSelect={(_, value) => {
-            //   setSelected(value as string);
-            //   setOpenType(false);
-            // }}
-            aria-label="Select a mode"
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            {/* <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption> */}
-            {/* ))} */}
-          </Select>
+          <Controller
+            name="editMode"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Select
+                toggleId="kc-edit-mode"
+                required
+                onToggle={() =>
+                  setIsEditModeDropdownOpen(!isEditModeDropdownOpen)
+                }
+                isOpen={isEditModeDropdownOpen}
+                onSelect={(_, value) => {
+                  onChange(value as string);
+                  setIsEditModeDropdownOpen(false);
+                }}
+                selections={value}
+                variant={SelectVariant.single}
+                // aria-label="Other"
+                // isDisabled
+              >
+                <SelectOption key={0} value="Choose..." isPlaceholder />
+                <SelectOption key={1} value="RACT_ONLY" />
+                <SelectOption key={2} value="WRITABLE" />
+                <SelectOption key={3} value="UNSYNCED" />
+              </Select>
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -79,7 +94,7 @@ export const LdapSettingsSearching = () => {
             isRequired
             type="text"
             id="kc-console-users-dn"
-            name="kc-console-users-dn"
+            name="usersDn"
             ref={register}
           />
         </FormGroup>
@@ -100,7 +115,7 @@ export const LdapSettingsSearching = () => {
             isRequired
             type="text"
             id="kc-username-ldap-attribute"
-            name="kc-username-ldap-attribute"
+            name="usernameLdapAttribute"
             ref={register}
           />
         </FormGroup>
@@ -121,7 +136,7 @@ export const LdapSettingsSearching = () => {
             isRequired
             type="text"
             id="kc-rdn-ldap-attribute"
-            name="kc-rdn-ldap-attribute"
+            name="rdnLdapAttribute"
             ref={register}
           />
         </FormGroup>
@@ -142,7 +157,7 @@ export const LdapSettingsSearching = () => {
             isRequired
             type="text"
             id="kc-uuid-ldap-attribute"
-            name="kc-uuid-ldap-attribute"
+            name="uuidLdapAttribute"
             ref={register}
           />
         </FormGroup>
@@ -163,7 +178,7 @@ export const LdapSettingsSearching = () => {
             isRequired
             type="text"
             id="kc-user-object-classes"
-            name="kc-user-object-classes"
+            name="userObjectClasses"
             ref={register}
           />
         </FormGroup>
@@ -179,29 +194,32 @@ export const LdapSettingsSearching = () => {
           }
           fieldId="kc-user-ldap-filter"
         >
-          <Select
-            toggleId="kc-user-ldap-filter"
-            // isOpen={openType}
-            onToggle={() => {}}
-            // variant={SelectVariant.single}
-            // value={selected}
-            // selections={selected}
-            // onSelect={(_, value) => {
-            //   setSelected(value as string);
-            //   setOpenType(false);
-            // }}
-            aria-label="Only for LDAPS" // TODO
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            {/* <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption> */}
-            {/* ))} */}
-          </Select>
+          <Controller
+            name="userLdapFilter"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Select
+                toggleId="kc-user-ldap-filter"
+                required
+                onToggle={() =>
+                  setIsUserLdapFilterModeDropdownOpen(
+                    !isUserLdapFilterModeDropdownOpen
+                  )
+                }
+                isOpen={isUserLdapFilterModeDropdownOpen}
+                onSelect={(_, value) => {
+                  onChange(value as string);
+                  setIsUserLdapFilterModeDropdownOpen(false);
+                }}
+                selections={value}
+                variant={SelectVariant.single}
+              >
+                <SelectOption key={0} value="Choose..." isPlaceholder />
+                <SelectOption key={1} value="to do " />
+              </Select>
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -215,29 +233,32 @@ export const LdapSettingsSearching = () => {
           }
           fieldId="kc-search-scope"
         >
-          <Select
-            toggleId="kc-search-scope"
-            // isOpen={openType}
-            onToggle={() => {}}
-            // variant={SelectVariant.single}
-            // value={selected}
-            // selections={selected}
-            // onSelect={(_, value) => {
-            //   setSelected(value as string);
-            //   setOpenType(false);
-            // }}
-            aria-label="Only for LDAPS" // TODO
-          >
-            {/* {configFormats.map((configFormat) => ( */}
-            {/* <SelectOption
-              key={"key"}
-              value={"value"}
-              // isSelected={selected === configFormat.id}
-            >
-              {"display name"}
-            </SelectOption> */}
-            {/* ))} */}
-          </Select>
+          <Controller
+            name="searchScope"
+            defaultValue=""
+            control={control}
+            render={({ onChange, value }) => (
+              <Select
+                toggleId="kc-search-scope"
+                required
+                onToggle={() =>
+                  setIsSearchScopeDropdownOpen(!isSearchScopeDropdownOpen)
+                }
+                isOpen={isSearchScopeDropdownOpen}
+                onSelect={(_, value) => {
+                  onChange(value as string);
+                  setIsSearchScopeDropdownOpen(false);
+                }}
+                selections={value}
+                variant={SelectVariant.single}
+              >
+                <SelectOption key={0} value="Choose..." isPlaceholder />
+                <SelectOption key={1} value="simple" />
+                <SelectOption key={2} value="none" />
+                <SelectOption key={5} value="Other" />
+              </Select>
+            )}
+          ></Controller>
         </FormGroup>
 
         <FormGroup
@@ -254,7 +275,7 @@ export const LdapSettingsSearching = () => {
           <TextInput
             type="text"
             id="kc-read-timeout"
-            name="kc-read-timeout"
+            name="readTimeout"
             ref={register}
           />
         </FormGroup>
@@ -271,14 +292,21 @@ export const LdapSettingsSearching = () => {
           fieldId="kc-console-pagination"
           hasNoPaddingTop
         >
-          <Switch
-            id={"kc-console-pagination"}
-            isChecked={true}
-            isDisabled={false}
-            onChange={() => undefined as any}
-            label={t("common:on")}
-            labelOff={t("common:off")}
-          />
+          <Controller
+            name="pagination"
+            defaultValue={false}
+            control={control}
+            render={({ onChange, value }) => (
+              <Switch
+                id={"kc-console-pagination"}
+                isChecked={value}
+                isDisabled={false}
+                onChange={onChange}
+                label={t("common:on")}
+                labelOff={t("common:off")}
+              />
+            )}
+          ></Controller>
         </FormGroup>
 
         <button type="submit">Test Submit</button>

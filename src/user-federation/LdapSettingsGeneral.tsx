@@ -16,7 +16,7 @@ export const LdapSettingsGeneral = () => {
   const { t } = useTranslation("user-federation");
   const helpText = useTranslation("user-federation-help").t;
 
-  const [open, isOpen] = useState(false);
+  const [isVendorDropdownOpen, setIsVendorDropdownOpen] = useState(false);
   const { register, handleSubmit, control } = useForm<
     UserFederationLdapGeneralRepresentation
   >();
@@ -44,7 +44,7 @@ export const LdapSettingsGeneral = () => {
             isRequired
             type="text"
             id="kc-console-display-name"
-            name="kc-console-display-name"
+            name="displayName"
             ref={register}
           />
         </FormGroup>
@@ -69,11 +69,11 @@ export const LdapSettingsGeneral = () => {
               <Select
                 toggleId="kc-vendor"
                 required
-                onToggle={() => isOpen(!open)}
-                isOpen={open}
+                onToggle={() => setIsVendorDropdownOpen(!isVendorDropdownOpen)}
+                isOpen={isVendorDropdownOpen}
                 onSelect={(_, value) => {
                   onChange(value as string);
-                  isOpen(false);
+                  setIsVendorDropdownOpen(false);
                 }}
                 selections={value}
                 variant={SelectVariant.single}
