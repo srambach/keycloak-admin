@@ -16,18 +16,17 @@ import {
   Split,
   SplitItem,
   Divider,
+  ValidatedOptions,
 } from "@patternfly/react-core";
 
+import RoleRepresentation from "keycloak-admin/lib/defs/roleRepresentation";
+import ClientRepresentation from "keycloak-admin/lib/defs/clientRepresentation";
 import { useAlerts } from "../../components/alert/Alerts";
 import { RealmContext } from "../../context/realm-context/RealmContext";
-import { HttpClientContext } from "../../context/http-service/HttpClientContext";
+import { useAdminClient } from "../../context/auth/AdminClient";
 
 import { ViewHeader } from "../../components/view-header/ViewHeader";
 import { HelpItem } from "../../components/help-enabler/HelpItem";
-import {
-  ClientRepresentation,
-  RoleRepresentation,
-} from "../../realm/models/Realm";
 import { ProtocolMapperRepresentation } from "../models/client-scope";
 
 export type RoleMappingFormProps = {
@@ -35,8 +34,8 @@ export type RoleMappingFormProps = {
 };
 
 export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
-  const httpClient = useContext(HttpClientContext)!;
   const { realm } = useContext(RealmContext);
+  const adminClient = useAdminClient();
   const history = useHistory();
   const { addAlert } = useAlerts();
 
@@ -53,18 +52,13 @@ export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
 
   useEffect(() => {
     (async () => {
-      const response = await httpClient.doGet<RoleRepresentation[]>(
-        `/admin/realms/${realm}/roles`
-      );
-      setRoles(response.data!);
-      const clientResponse = await httpClient.doGet<ClientRepresentation[]>(
-        `/admin/realms/${realm}/clients`
-      );
-      const clients = clientResponse.data!;
+      const roles = await adminClient.roles.find();
+      setRoles(roles);
+      const clients = await adminClient.clients.find();
       clients.map(
         (client) =>
           (client.toString = function () {
-            return this.name;
+            return this.name!;
           })
       );
       setClients(clients);
@@ -75,19 +69,15 @@ export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
     (async () => {
       const client = selectedClient as ClientRepresentation;
       if (client && client.name !== "realmRoles") {
-        const response = await httpClient.doGet<RoleRepresentation[]>(
-          `/admin/realms/master/clients/${client.id}/roles`
-        );
-
-        setClientRoles(response.data!);
+        setClientRoles(await adminClient.clients.listRoles({ id: client.id! }));
       }
     })();
   }, [selectedClient]);
 
   const save = async (mapping: ProtocolMapperRepresentation) => {
     try {
-      await httpClient.doPost(
-        `/admin/realms/${realm}/client-scopes/${clientScopeId}/protocol-mappers/models`,
+      await adminClient.clientScopes.addProtocolMapper(
+        { id: clientScopeId },
         mapping
       );
       addAlert(t("mapperCreateSuccess"));
@@ -173,7 +163,9 @@ export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
             }
             fieldId="name"
             isRequired
-            validated={errors.name ? "error" : "default"}
+            validated={
+              errors.name ? ValidatedOptions.error : ValidatedOptions.default
+            }
             helperTextInvalid={t("common:required")}
           >
             <TextInput
@@ -181,6 +173,9 @@ export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
               type="text"
               id="name"
               name="name"
+              validated={
+                errors.name ? ValidatedOptions.error : ValidatedOptions.default
+              }
             />
           </FormGroup>
           <FormGroup
@@ -213,8 +208,8 @@ export const RoleMappingForm = ({ clientScopeId }: RoleMappingFormProps) => {
                     } else {
                       return createSelectGroup(
                         clients.filter((client) =>
-                          client.name
-                            .toLowerCase()
+                          client
+                            .name!.toLowerCase()
                             .includes(textInput.toLowerCase())
                         )
                       );

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   AlertVariant,
   Button,
@@ -7,10 +7,10 @@ import {
   Modal,
   ModalVariant,
   TextInput,
+  ValidatedOptions,
 } from "@patternfly/react-core";
 import { useTranslation } from "react-i18next";
-import { HttpClientContext } from "../context/http-service/HttpClientContext";
-import { RealmContext } from "../context/realm-context/RealmContext";
+import { useAdminClient } from "../context/auth/AdminClient";
 import { useAlerts } from "../components/alert/Alerts";
 import { useForm } from "react-hook-form";
 
@@ -32,8 +32,7 @@ export const GroupsCreateModal = ({
   refresh,
 }: GroupsCreateModalProps) => {
   const { t } = useTranslation("groups");
-  const httpClient = useContext(HttpClientContext)!;
-  const { realm } = useContext(RealmContext);
+  const adminClient = useAdminClient();
   const { addAlert } = useAlerts();
   const form = useForm();
   const { register, errors } = form;
@@ -45,9 +44,7 @@ export const GroupsCreateModal = ({
   const submitForm = async () => {
     if (await form.trigger()) {
       try {
-        await httpClient.doPost(`/admin/realms/${realm}/groups`, {
-          name: createGroupName,
-        });
+        await adminClient.groups.create({ name: createGroupName });
         refresh();
         setIsCreateModalOpen(false);
         setCreateGroupName("");
@@ -80,7 +77,9 @@ export const GroupsCreateModal = ({
             label={t("name")}
             fieldId="group-id"
             helperTextInvalid={t("common:required")}
-            validated={errors.name ? "error" : "default"}
+            validated={
+              errors.name ? ValidatedOptions.error : ValidatedOptions.default
+            }
             isRequired
           >
             <TextInput
@@ -90,6 +89,9 @@ export const GroupsCreateModal = ({
               name="name"
               value={createGroupName}
               onChange={valueChange}
+              validated={
+                errors.name ? ValidatedOptions.error : ValidatedOptions.default
+              }
             />
           </FormGroup>
         </Form>

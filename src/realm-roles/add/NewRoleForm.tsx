@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import {
   Text,
@@ -15,17 +15,15 @@ import {
   ValidatedOptions,
 } from "@patternfly/react-core";
 
-import { RoleRepresentation } from "../../model/role-model";
-import { HttpClientContext } from "../../context/http-service/HttpClientContext";
 import { useAlerts } from "../../components/alert/Alerts";
-import { Controller, useForm, FieldErrors } from "react-hook-form";
-import { RealmContext } from "../../context/realm-context/RealmContext";
+import { Controller, useForm } from "react-hook-form";
+import RoleRepresentation from "keycloak-admin/lib/defs/roleRepresentation";
+import { useAdminClient } from "../../context/auth/AdminClient";
 
 export const NewRoleForm = () => {
   const { t } = useTranslation("roles");
-  const httpClient = useContext(HttpClientContext)!;
   const { addAlert } = useAlerts();
-  const { realm } = useContext(RealmContext);
+  const adminClient = useAdminClient();
 
   const { register, control, errors, handleSubmit } = useForm<
     RoleRepresentation
@@ -33,14 +31,12 @@ export const NewRoleForm = () => {
 
   const save = async (role: RoleRepresentation) => {
     try {
-      await httpClient.doPost(`admin/realms/${realm}/roles`, role);
+      await adminClient.roles.create(role);
       addAlert(t("roleCreated"), AlertVariant.success);
     } catch (error) {
       addAlert(`${t("roleCreateError")} '${error}'`, AlertVariant.danger);
     }
   };
-
-  console.log(errors);
 
   return (
     <>
@@ -52,24 +48,35 @@ export const NewRoleForm = () => {
       <Divider />
       <PageSection variant="light">
         <Form isHorizontal onSubmit={handleSubmit(save)}>
-          <FormGroup label={t("roleName")} isRequired fieldId="kc-role-name">
+          <FormGroup
+            label={t("roleName")}
+            isRequired
+            fieldId="kc-role-name"
+            validated={
+              errors.name ? ValidatedOptions.error : ValidatedOptions.default
+            }
+            helperTextInvalid={t("common:required")}
+          >
             <TextInput
               isRequired
               type="text"
               id="kc-role-name"
               name="name"
               ref={register({ required: true })}
+              validated={
+                errors.name ? ValidatedOptions.error : ValidatedOptions.default
+              }
             />
           </FormGroup>
           <FormGroup
             label={t("description")}
             fieldId="kc-role-description"
             validated={
-              Object.keys(errors).length != 0
+              errors.description
                 ? ValidatedOptions.error
                 : ValidatedOptions.default
             }
-            helperTextInvalid={"Max length 255"}
+            helperTextInvalid={t("common:maxLength", { length: 255 })}
           >
             <Controller
               name="description"
@@ -80,10 +87,9 @@ export const NewRoleForm = () => {
                 <TextArea
                   type="text"
                   validated={
-                    errors.description &&
-                    errors.description.type === "maxLength"
-                      ? "error"
-                      : "default"
+                    errors.description
+                      ? ValidatedOptions.error
+                      : ValidatedOptions.default
                   }
                   id="kc-role-description"
                   value={value}

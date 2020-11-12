@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,20 +10,16 @@ import {
 } from "@patternfly/react-core";
 import { RealmSelector } from "./components/realm-selector/RealmSelector";
 import { DataLoader } from "./components/data-loader/DataLoader";
-import { HttpClientContext } from "./context/http-service/HttpClientContext";
+import { useAdminClient } from "./context/auth/AdminClient";
 import { useAccess } from "./context/access/Access";
-import { RealmRepresentation } from "./realm/models/Realm";
 import { routes } from "./route-config";
 
 export const PageNav: React.FunctionComponent = () => {
   const { t } = useTranslation("common");
   const { hasAccess, hasSomeAccess } = useAccess();
-  const httpClient = useContext(HttpClientContext)!;
+  const adminClient = useAdminClient();
   const realmLoader = async () => {
-    const response = await httpClient.doGet<RealmRepresentation[]>(
-      "/admin/realms"
-    );
-    return response.data;
+    return await adminClient.realms.find();
   };
 
   const history = useHistory();
@@ -49,7 +45,6 @@ export const PageNav: React.FunctionComponent = () => {
   type LeftNavProps = { title: string; path: string };
   const LeftNav = ({ title, path }: LeftNavProps) => {
     const route = routes(() => {}).find((route) => route.path === path);
-    console.log(`hasAccess(${route!.access})=` + hasAccess(route!.access));
     if (!route || !hasAccess(route.access)) return <></>;
 
     return (
@@ -78,43 +73,40 @@ export const PageNav: React.FunctionComponent = () => {
   );
 
   return (
-    <DataLoader loader={realmLoader}>
-      {(realmList) => (
-        <PageSidebar
-          nav={
-            <Nav onSelect={onSelect}>
-              <NavList>
+    <PageSidebar
+      nav={
+        <Nav onSelect={onSelect}>
+          <NavList>
+            <DataLoader loader={realmLoader}>
+              {(realmList) => (
                 <NavItem className="keycloak__page_nav__nav_item__realm-selector">
                   <RealmSelector realmList={realmList.data || []} />
                 </NavItem>
-              </NavList>
-              {showManage && (
-                <NavGroup title={t("manage")}>
-                  <LeftNav title="clients" path="/clients" />
-                  <LeftNav title="clientScopes" path="/client-scopes" />
-                  <LeftNav title="realmRoles" path="/roles" />
-                  <LeftNav title="users" path="/users" />
-                  <LeftNav title="groups" path="/groups" />
-                  <LeftNav title="sessions" path="/sessions" />
-                  <LeftNav title="events" path="/events" />
-                </NavGroup>
               )}
+            </DataLoader>
+          </NavList>
+          {showManage && (
+            <NavGroup title={t("manage")}>
+              <LeftNav title="clients" path="/clients" />
+              <LeftNav title="clientScopes" path="/client-scopes" />
+              <LeftNav title="realmRoles" path="/roles" />
+              <LeftNav title="users" path="/users" />
+              <LeftNav title="groups" path="/groups" />
+              <LeftNav title="sessions" path="/sessions" />
+              <LeftNav title="events" path="/events" />
+            </NavGroup>
+          )}
 
-              {showConfigure && (
-                <NavGroup title={t("configure")}>
-                  <LeftNav title="realmSettings" path="/realm-settings" />
-                  <LeftNav title="authentication" path="/authentication" />
-                  <LeftNav
-                    title="identityProviders"
-                    path="/identity-providers"
-                  />
-                  <LeftNav title="userFederation" path="/user-federation" />
-                </NavGroup>
-              )}
-            </Nav>
-          }
-        />
-      )}
-    </DataLoader>
+          {showConfigure && (
+            <NavGroup title={t("configure")}>
+              <LeftNav title="realmSettings" path="/realm-settings" />
+              <LeftNav title="authentication" path="/authentication" />
+              <LeftNav title="identityProviders" path="/identity-providers" />
+              <LeftNav title="userFederation" path="/user-federation" />
+            </NavGroup>
+          )}
+        </Nav>
+      }
+    />
   );
 };
