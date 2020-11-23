@@ -11,6 +11,7 @@ import { HelpItem } from "../components/help-enabler/HelpItem";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import ComponentRepresentation from "keycloak-admin/lib/defs/componentRepresentation";
+import { FormAccess } from "../components/form-access/FormAccess";
 
 export const KerberosSettingsCache = () => {
   const { t } = useTranslation("user-federation");
@@ -49,7 +50,7 @@ export const KerberosSettingsCache = () => {
   return (
     <>
       {/* Cache settings */}
-      <Form isHorizontal>
+      <FormAccess role="manage-realm" isHorizontal>
         <FormGroup
           label={t("cachePolicy")}
           labelIcon={
@@ -227,7 +228,7 @@ export const KerberosSettingsCache = () => {
 
         {/* Use this button to test for submit */}
         {/* <button type="submit">Test submit</button> */}
-      </Form>
+      </FormAccess>
     </>
   );
 };
