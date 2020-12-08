@@ -1,9 +1,8 @@
-
 .panel {
-  padding-top: 24px;
-  padding-bottom: 48px;
+  padding-top: var(--pf-global--spacer--lg);
+  padding-bottom: var(--pf-global--spacer--2xl);
 }
 
 .title {
-  padding-bottom: 24px;
+  padding-bottom: var(--pf-global--spacer--lg);
 }
