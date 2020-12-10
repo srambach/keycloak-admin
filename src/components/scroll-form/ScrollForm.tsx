@@ -17,7 +17,7 @@ type ScrollFormProps = {
 };
 
 // This must match the page id created in App.tsx unless another page section has been given hasScrollableContent
-const mainPageContentId = "#main-content-page-container";
+const mainPageContentId = "#kc-main-content-page-container";
 
 export const ScrollForm = ({ sections, children }: ScrollFormProps) => {
   const { t } = useTranslation("common");
@@ -30,6 +30,7 @@ export const ScrollForm = ({ sections, children }: ScrollFormProps) => {
         // to scroll the entire main section, it has to be the pf-c-page__main
         scrollableSelector={mainPageContentId}
         label={t("jumpToSection")}
+        offset={76}
       >
         {sections.map((cat) => (
           // note that JumpLinks currently does not work with spaces in the href
@@ -46,7 +47,7 @@ export const ScrollForm = ({ sections, children }: ScrollFormProps) => {
     <Grid hasGutter>
       <GridItem span={8}>
         {sections.map((cat, index) => (
-          <FormPanel id={cat.replace(/\s+/g, "-")} key={cat} title={cat}>
+          <FormPanel scrollId={cat.replace(/\s+/g, "-")} key={cat} title={cat}>
             {nodes[index]}
           </FormPanel>
         ))}

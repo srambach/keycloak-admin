@@ -15,7 +15,7 @@ import { PageBreadCrumbs } from "./components/bread-crumb/PageBreadCrumbs";
 import { ForbiddenSection } from "./ForbiddenSection";
 
 // This must match the id given as scrollableSelector in scroll-form
-const mainPageContentId = "main-content-page-container";
+const mainPageContentId = "kc-main-content-page-container";
 
 const AppContexts = ({ children }: { children: ReactNode }) => (
   <AccessContextProvider>
