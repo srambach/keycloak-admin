@@ -1,7 +1,7 @@
 import React from "react";
 import { Title } from "@patternfly/react-core";
 
-import style from "./form-panel.module.css";
+import "./form-panel.css";
 
 interface FormPanelProps extends React.HTMLProps<HTMLFormElement> {
   title: string;
@@ -11,8 +11,14 @@ interface FormPanelProps extends React.HTMLProps<HTMLFormElement> {
 export const FormPanel = (props: FormPanelProps) => {
   const { title, children, scrollId, ...rest } = props;
   return (
-    <section {...rest} className={style.panel}>
-      <Title headingLevel="h4" size="xl" className={style.title} id={scrollId}>
+    <section {...rest} className="kc-form-panel__panel">
+      <Title
+        headingLevel="h4"
+        size="xl"
+        className="kc-form-panel__title"
+        id={scrollId}
+        tabIndex={0} // so that jumpLink sends focus to the section for a11y
+      >
         {title}
       </Title>
       {children}
