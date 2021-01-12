@@ -81,6 +81,11 @@
     "userFedDeletedSuccess": "The user federation provider has been deleted.",
     "userFedDeleteError": "Could not delete user federation provider: '{{error}}'",
     "userFedDeleteConfirmTitle": "Delete user federation provider?",
-    "userFedDeleteConfirm": "If you delete this user federation provider, all associated data will be removed."
+    "userFedDeleteConfirm": "If you delete this user federation provider, all associated data will be removed.",
+
+    "removeImportedUsers": "Remove imported users?",
+    "removeImportedUsersMessage": "Do you really want to remove all imported users? The option \"Unlink users\" makes sense just for the Edit Mode \"Unsynced\" and there should be a warning that \"unlinked\" users without the password in the Keycloak database won't be able to authenticate.",
+    "removeImportedUsersSuccess": "Imported users have been removed",
+    "removeImportedUsersError": "Could not remove imported users: '{{error}}'"
   }
 }
